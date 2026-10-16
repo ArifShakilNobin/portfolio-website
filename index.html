@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md. Arif Shakil Nobin | Senior Software Engineer & System Architect</title>
-
-    <!-- Tab Icon (Favicon) Added Here -->
-    <link rel="icon" type="image/jpeg" href="profile.jpg">
     
+    <!-- Tab Icon (Round Holographic Favicon) -->
+    <link rel="icon" type="image/jpeg" href="profile.jpg">
+
     <!-- Anti-AI Scraper & Bot Protection Headers -->
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
     <meta name="googlebot" content="noindex, nofollow">
@@ -66,6 +66,87 @@
             background: rgba(20, 30, 55, 0.8);
             border-color: rgba(0, 242, 254, 0.4);
             box-shadow: 0 10px 30px -10px rgba(0, 242, 254, 0.25);
+        }
+
+        /* --- WORLD-CLASS HOLOGRAPHIC PROFILE EFFECT --- */
+        .holo-container {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .holo-ring {
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #00f2fe, #7000ff, #00ff88, #00f2fe);
+            animation: holoSpin 4s linear infinite;
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6));
+        }
+
+        .holo-ring-inner {
+            position: absolute;
+            inset: -1px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg, #ff007f, #00f2fe, #7000ff);
+            animation: holoSpinReverse 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        .holo-core {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #070a12;
+            z-index: 2;
+            border: 2px solid rgba(0, 242, 254, 0.8);
+        }
+
+        .holo-core img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .holo-container:hover .holo-core img {
+            transform: scale(1.15) rotate(3deg);
+            filter: contrast(1.1) brightness(1.1);
+        }
+
+        /* Scanning Laser Beam over the image */
+        .holo-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            animation: scanLaser 2.5s ease-in-out infinite;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        @keyframes holoSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes holoSpinReverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes scanLaser {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
         }
 
         .text-gradient-cyan {
@@ -148,16 +229,27 @@
     <div id="cursor-glow" class="hidden md:block"></div>
     <canvas id="bgCanvas" class="fixed top-0 left-0 w-full h-full -z-10 opacity-70"></canvas>
 
+    <!-- HEADER / NAVBAR WITH FUTURISTIC HOLOGRAPHIC AVATAR -->
     <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 px-3 sm:px-6 lg:px-8" id="navbar">
-        <div class="max-w-7xl mx-auto glass-panel rounded-full px-4 sm:px-6 py-3 flex items-center justify-between border border-slate-800/80 shadow-2xl">
-            <a href="profile.jpg" class="flex items-center space-x-2 sm:space-x-3 group">
-                <!-- Profile Image Added Here -->
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-[2px] bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden shadow-lg shadow-cyan-500/20">
-                    <img src="profile.jpg" alt="Md. Arif Shakil Nobin" class="w-full h-full object-cover rounded-full">
+        <div class="max-w-7xl mx-auto glass-panel rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between border border-slate-800/80 shadow-2xl">
+            <a href="#hero" class="flex items-center space-x-3 group">
+                
+                <!-- WORLD-CLASS HOLOGRAPHIC AVATAR WRAPPER -->
+                <div class="holo-container">
+                    <div class="holo-ring"></div>
+                    <div class="holo-ring-inner"></div>
+                    <div class="holo-core">
+                        <div class="holo-scanline"></div>
+                        <img src="profile.jpg" alt="Md. Arif Shakil Nobin">
+                    </div>
                 </div>
+
                 <div class="flex flex-col">
-                    <span class="font-bold tracking-wide text-white text-xs sm:text-base group-hover:text-cyan-400 transition-colors">Md. Arif Shakil Nobin</span>
-                    <span class="text-[9px] sm:text-[10px] text-slate-400 font-mono tracking-widest uppercase">Java Full Stack Engineer</span>
+                    <span class="font-bold tracking-wide text-white text-xs sm:text-base group-hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                        Md. Arif Shakil Nobin 
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    </span>
+                    <span class="text-[9px] sm:text-[10px] text-cyan-400 font-mono tracking-widest uppercase">Java Full Stack Engineer</span>
                 </div>
             </a>
 
@@ -748,7 +840,7 @@
     <footer class="py-8 border-t border-slate-900 text-center text-xs font-mono text-slate-500">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-                © 2026 Md. Arif Shakil Nobin. All Rights Reserved.
+                © 2026 Md. Arif Shakil Nobin. All Rights Reserved. 
             </div>
         </div>
     </footer>
@@ -787,17 +879,6 @@
                 return false;
             }
         });
-
-        // 3. DevTools Open Detection & Console Trap
-        // (function() {
-        //     let threshold = 160;
-        //     let checkInterval = setInterval(function() {
-        //         if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-        //             document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#070a12;color:#00f2fe;font-family:monospace;font-size:24px;text-align:center;'>Developer Tools Detected! Access Restricted.</div>";
-        //             clearInterval(checkInterval);
-        //         }
-        //     }, 1000);
-        // })();
 
         // --- CANVAS & UI SCRIPT ---
         const canvas = document.getElementById('bgCanvas');
