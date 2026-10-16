@@ -713,25 +713,25 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                                 <div>
                                     <label class="block text-xs font-mono text-slate-400 mb-2">YOUR NAME *</label>
-                                    <input type="text" id="senderName" name="name" required placeholder="John Doe" 
+                                    <input type="text" id="senderName" required placeholder="John Doe" 
                                         class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition-colors">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-mono text-slate-400 mb-2">YOUR EMAIL *</label>
-                                    <input type="email" id="senderEmail" name="email" required placeholder="john@company.com" 
+                                    <input type="email" id="senderEmail" required placeholder="john@company.com" 
                                         class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition-colors">
                                 </div>
                             </div>
 
                             <div>
                                 <label class="block text-xs font-mono text-slate-400 mb-2">SUBJECT *</label>
-                                <input type="text" id="senderSubject" name="subject" required placeholder="Hiring / Project Collaboration" 
+                                <input type="text" id="senderSubject" required placeholder="Hiring / Project Collaboration" 
                                     class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition-colors">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-mono text-slate-400 mb-2">MESSAGE *</label>
-                                <textarea id="senderMessage" name="message" rows="5" required placeholder="Write your message here..." 
+                                <textarea id="senderMessage" rows="5" required placeholder="Write your message here..." 
                                     class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
                             </div>
 
@@ -999,7 +999,7 @@
             document.getElementById('projectModal').classList.add('hidden');
         }
 
-        // Direct Email Sending Handler via Formspree (No Mailto app needed)
+        // Google Apps Script Integration for Direct Gmail Notification & Sheet Logging
         async function handleContactSubmit(event) {
             event.preventDefault();
 
@@ -1007,8 +1007,8 @@
             const btnText = document.getElementById('btnText');
             const toast = document.getElementById('statusToast');
 
-            // আপনার Formspree Endpoint টি এখানে বসাবেন (যেমন: https://formspree.io/f/your_form_id)
-            const formActionUrl = "https://formspree.io/f/mgaorzba";
+            // আপনার Google Apps Script Deploy করার পর প্রাপ্ত Web App URL টি এখানে বসাবেন
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwWfLqXcyQT5NKvbKtv7vYhaJlXL9DOEwT4-mHSF4-ZvFpy5KsoFzWlSWWxnvdu7ICe/exec";
 
             const formData = {
                 name: document.getElementById('senderName').value,
@@ -1017,32 +1017,28 @@
                 message: document.getElementById('senderMessage').value
             };
 
-            // Loading State
             submitBtn.disabled = true;
-            btnText.innerHTML = "Sending Mail...";
+            btnText.innerHTML = "Sending via Google Server...";
 
             try {
-                const response = await fetch(formActionUrl, {
+                await fetch(scriptURL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
                     },
                     body: JSON.stringify(formData)
                 });
 
-                if (response.ok) {
-                    toast.classList.remove('hidden', 'bg-red-950/80', 'text-red-300', 'border-red-800');
-                    toast.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-800');
-                    toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> Thank you! Your message has been sent successfully to <strong>Arifshakil28@gmail.com</strong>.`;
-                    document.getElementById('contactForm').reset();
-                } else {
-                    throw new Error("Failed to send message.");
-                }
+                toast.classList.remove('hidden', 'bg-red-950/80', 'text-red-300', 'border-red-800');
+                toast.classList.add('bg-emerald-950/80', 'text-emerald-300', 'border-emerald-800');
+                toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> Success! Your message has been sent to <strong>Arifshakil28@gmail.com</strong>.`;
+                document.getElementById('contactForm').reset();
+
             } catch (error) {
                 toast.classList.remove('hidden', 'bg-emerald-950/80', 'text-emerald-300', 'border-emerald-800');
                 toast.classList.add('bg-red-950/80', 'text-red-300', 'border-red-800');
-                toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Oops! Something went wrong. Please try again later.`;
+                toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Error! Failed to send message.`;
             } finally {
                 submitBtn.disabled = false;
                 btnText.innerHTML = "Send Direct Mail";
